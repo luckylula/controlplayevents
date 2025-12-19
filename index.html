@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control Play Events | Eventos & Experiencias</title>
+    <title id="page-title">Control Play Events | Eventos & Experiencias</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,8 +46,6 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
-        
-        /* Animación escalonada DESDE LA DERECHA */
         .stagger-text span {
             display: block;
             opacity: 0;
@@ -56,14 +54,11 @@
         }
         .stagger-text span:nth-child(1) { animation-delay: 0.5s; }
         .stagger-text span:nth-child(2) { animation-delay: 2.5s; }
-        .stagger-text span:nth-child(3) { animation-delay: 5.5s; }
-        
+        .stagger-text span:nth-child(3) { animation-delay: 5.5s; }        
         @keyframes slideInRight {
             from { opacity: 0; transform: translateX(50px); }
             to { opacity: 1; transform: translateX(0); }
         }
-
-        /* Hide scrollbar for clean UI */
         ::-webkit-scrollbar {
             width: 6px;
         }
@@ -73,6 +68,19 @@
         ::-webkit-scrollbar-thumb {
             background: #333;
             border-radius: 3px;
+        }
+        /* Language toggle button */
+        .lang-switcher {
+            font-family: var(--font-sans);
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .lang-switcher .active {
+            background: #3b82f6;
+            color: white;
+        }
+        .lang-switcher button {
+            transition: background .2s, color .2s;
         }
     </style>
     <script>
@@ -97,8 +105,7 @@
                 }
             }
         }
-        
-        // Función inteligente para probar extensiones
+        // Function to try next extension
         function tryNextExtension(img) {
             if (img.dataset.tried === "all") return;
             const currentSrc = img.src;
@@ -110,15 +117,28 @@
 </head>
 <body class="bg-neutral-950 text-neutral-200 antialiased selection:bg-white selection:text-black">
 
+    <!-- Language Selector -->
+    <div class="fixed top-4 right-4 z-[99] lang-switcher shadow border bg-black/80 backdrop-blur-sm flex overflow-hidden">
+        <button id="lang-es" class="px-4 py-2 focus:outline-none">ES</button>
+        <button id="lang-en" class="px-4 py-2 focus:outline-none">EN</button>
+    </div>
+
     <div id="mobile-menu" class="fixed inset-0 z-[60] bg-black/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8 opacity-0 pointer-events-none">
         <button id="close-menu" class="absolute top-6 right-6 text-white p-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
         </button>
-        <a href="#hero" class="text-3xl font-serif text-white hover:text-red-600 transition-colors" onclick="toggleMenu()">Agencia</a>
-        <a href="#eventos" class="text-3xl font-serif text-white hover:text-red-600 transition-colors" onclick="toggleMenu()">Eventos</a>
-        <a href="#portfolio" class="text-3xl font-serif text-white hover:text-red-600 transition-colors" onclick="toggleMenu()">Portfolio</a>
-        <a href="#equipo" class="text-3xl font-serif text-white hover:text-red-600 transition-colors" onclick="toggleMenu()">Equipo</a>
-        <a href="#contacto" class="text-3xl font-serif text-white hover:text-red-600 transition-colors" onclick="toggleMenu()">Contacto</a>
+        <!-- Multilingual mobile menu -->
+        <a href="#hero" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-es" onclick="toggleMenu()">Agencia</a>
+        <a href="#eventos" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-es" onclick="toggleMenu()">Eventos</a>
+        <a href="#portfolio" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-es" onclick="toggleMenu()">Portfolio</a>
+        <a href="#equipo" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-es" onclick="toggleMenu()">Equipo</a>
+        <a href="#contacto" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-es" onclick="toggleMenu()">Contacto</a>
+        <!-- English -->
+        <a href="#hero" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-en hidden" onclick="toggleMenu()">Agency</a>
+        <a href="#eventos" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-en hidden" onclick="toggleMenu()">Events</a>
+        <a href="#portfolio" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-en hidden" onclick="toggleMenu()">Portfolio</a>
+        <a href="#equipo" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-en hidden" onclick="toggleMenu()">Team</a>
+        <a href="#contacto" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-en hidden" onclick="toggleMenu()">Contact</a>
     </div>
 
    <nav class="fixed top-0 w-full z-50 border-b border-white/5 glass-nav transition-all duration-300 py-6">
@@ -127,11 +147,17 @@
                 <img src="logo_control_play_events_libre.png" alt="Control Play Events Logo" class="h-20 w-auto object-contain">
             </a>
             <div class="hidden md:flex items-center gap-10">
-                <a href="#hero" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors">Agencia</a>
-                <a href="#eventos" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors">Eventos</a>
-                <a href="#portfolio" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors">Portfolio</a>
-                <a href="#equipo" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors">Equipo</a>
-                <a href="#contacto" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors">Contacto</a>
+                <a href="#hero" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors nav-label-es">Agencia</a>
+                <a href="#eventos" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors nav-label-es">Eventos</a>
+                <a href="#portfolio" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors nav-label-es">Portfolio</a>
+                <a href="#equipo" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors nav-label-es">Equipo</a>
+                <a href="#contacto" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors nav-label-es">Contacto</a>
+                <!-- English Labels -->
+                <a href="#hero" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors nav-label-en hidden">Agency</a>
+                <a href="#eventos" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors nav-label-en hidden">Events</a>
+                <a href="#portfolio" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors nav-label-en hidden">Portfolio</a>
+                <a href="#equipo" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors nav-label-en hidden">Team</a>
+                <a href="#contacto" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors nav-label-en hidden">Contact</a>
             </div>
             <div class="flex items-center gap-4">
                 <button id="open-menu" class="md:hidden text-white p-2">
@@ -154,26 +180,37 @@
                     <img src="logo_control_play_events_libre.png" alt="Icon" class="w-8 h-8 rounded-full object-cover">
                     <span class="text-red-600 text-xl font-black uppercase tracking-widest">Control Play Events</span>
                 </div>
-                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl leading-[1.1] tracking-tighter text-white mb-8 drop-shadow-lg">
+                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl leading-[1.1] tracking-tighter text-white mb-8 drop-shadow-lg hero-title-es">
                     Eventos 360 que<br>
                     <span class="italic text-neutral-200 font-light">emocionan, inspiran</span><br>
                     y conectan.
+                </h1>
+                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl leading-[1.1] tracking-tighter text-white mb-8 drop-shadow-lg hero-title-en hidden">
+                    360° Events that<br>
+                    <span class="italic text-neutral-200 font-light">thrill, inspire</span><br>
+                    and connect.
                 </h1>
                 <div class="flex flex-col sm:flex-row gap-6 mt-12">
                     <a href="#eventos" class="group flex items-center gap-4 text-white hover:text-red-500 transition-colors drop-shadow-md">
                         <div class="w-12 h-12 border border-white rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-down" class="lucide lucide-arrow-down w-5 h-5 stroke-[1.5]"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
                         </div>
-                        <span class="text-sm font-bold uppercase tracking-widest shadow-black">Explorar Proyectos</span>
+                        <span class="text-sm font-bold uppercase tracking-widest shadow-black btn-explorar-es">Explorar Proyectos</span>
+                        <span class="text-sm font-bold uppercase tracking-widest shadow-black btn-explorar-en hidden">Explore Projects</span>
                     </a>
                 </div>
             </div>
 
             <div class="lg:col-span-4 lg:text-right hidden lg:block">
-                <div class="stagger-text text-white text-base font-bold leading-relaxed max-w-md ml-auto space-y-6 drop-shadow-xl shadow-black">
+                <div class="stagger-text text-white text-base font-bold leading-relaxed max-w-md ml-auto space-y-6 drop-shadow-xl shadow-black hero-desc-es">
                     <span>En Control Play Events llevamos más de dos décadas dedicándonos a lo que realmente nos mueve: crear experiencias que se sienten y se quedan para siempre.</span>
                     <span>Somos una agencia de eventos corporativos apasionada por innovar, sorprender y cuidar cada detalle. Creemos en el poder de las emociones, en la magia de una buena idea ejecutada a la perfección y en la conexión genuina entre las marcas y las personas.</span>
                     <span>Convertimos tus objetivos en momentos que impactan, inspiran y perduran. Porque para nosotros, un evento no es solo una cita en el calendario: es una oportunidad para crear historias que dejan huella.</span>
+                </div>
+                <div class="stagger-text text-white text-base font-bold leading-relaxed max-w-md ml-auto space-y-6 drop-shadow-xl shadow-black hero-desc-en hidden">
+                    <span>At Control Play Events, we have dedicated over two decades to what truly drives us: creating experiences that are felt and last forever.</span>
+                    <span>We are a corporate event agency passionate about innovating, surprising, and caring for every detail. We believe in the power of emotions, the magic of a great idea flawlessly executed, and in genuine connections between brands and people.</span>
+                    <span>We turn your goals into moments that impact, inspire, and endure. For us, an event is not just a date on the calendar: it's an opportunity to create lasting stories.</span>
                 </div>
             </div>
         </div>
@@ -181,7 +218,7 @@
 
     <div class="py-12 bg-white text-black border-y border-neutral-200 overflow-hidden relative z-20">
         <div class="flex whitespace-nowrap overflow-hidden">
-            <div class="animate-scroll flex gap-16 items-center text-4xl md:text-6xl font-serif font-medium tracking-tighter italic">
+            <div class="animate-scroll flex gap-16 items-center text-4xl md:text-6xl font-serif font-medium tracking-tighter italic rolling-es">
                 <span>CONGRESOS</span>
                 <span class="text-stroke text-black not-italic font-sans font-black tracking-tight uppercase opacity-50">Stands</span>
                 <span class="text-red-600 font-bold">TEAMBUILDING</span>
@@ -207,15 +244,42 @@
                 <span class="text-red-600 font-bold">CATERING</span>
                 <span class="text-stroke text-black not-italic font-sans font-black tracking-tight uppercase opacity-50">Audiovisuales</span>
             </div>
+            <div class="animate-scroll flex gap-16 items-center text-4xl md:text-6xl font-serif font-medium tracking-tighter italic rolling-en hidden">
+                <span>CONGRESSES</span>
+                <span class="text-stroke text-black not-italic font-sans font-black tracking-tight uppercase opacity-50">Stands</span>
+                <span class="text-red-600 font-bold">TEAMBUILDING</span>
+                <span class="text-stroke text-black not-italic font-sans font-black tracking-tight uppercase opacity-50">Dinners</span>
+                <span>FAMILY DAYS</span>
+                <span class="text-stroke text-black not-italic font-sans font-black tracking-tight uppercase opacity-50">CSR</span>
+                <span class="text-red-600 font-bold">DECORATION</span>
+                <span class="text-stroke text-black not-italic font-sans font-black tracking-tight uppercase opacity-50">Shows</span>
+                <span>LOCAL PARTNER</span>
+                <span class="text-stroke text-black not-italic font-sans font-black tracking-tight uppercase opacity-50">Product</span>
+                <span class="text-red-600 font-bold">CATERING</span>
+                <span class="text-stroke text-black not-italic font-sans font-black tracking-tight uppercase opacity-50">Audiovisual</span>
+                <span>CONGRESSES</span>
+                <span class="text-stroke text-black not-italic font-sans font-black tracking-tight uppercase opacity-50">Stands</span>
+                <span class="text-red-600 font-bold">TEAMBUILDING</span>
+                <span class="text-stroke text-black not-italic font-sans font-black tracking-tight uppercase opacity-50">Dinners</span>
+                <span>FAMILY DAYS</span>
+                <span class="text-stroke text-black not-italic font-sans font-black tracking-tight uppercase opacity-50">CSR</span>
+                <span class="text-red-600 font-bold">DECORATION</span>
+                <span class="text-stroke text-black not-italic font-sans font-black tracking-tight uppercase opacity-50">Shows</span>
+                <span>LOCAL PARTNER</span>
+                <span class="text-stroke text-black not-italic font-sans font-black tracking-tight uppercase opacity-50">Product</span>
+                <span class="text-red-600 font-bold">CATERING</span>
+                <span class="text-stroke text-black not-italic font-sans font-black tracking-tight uppercase opacity-50">Audiovisual</span>
+            </div>
         </div>
     </div>
 
     <section id="eventos" class="py-32 px-6 lg:px-12 max-w-[1400px] mx-auto">
         <div class="mb-12">
-             <h2 class="font-raleway text-5xl md:text-6xl text-white font-bold uppercase tracking-wide">Nuestros Servicios</h2>
+            <h2 class="font-raleway text-5xl md:text-6xl text-white font-bold uppercase tracking-wide section-servicios-title-es">Nuestros Servicios</h2>
+            <h2 class="font-raleway text-5xl md:text-6xl text-white font-bold uppercase tracking-wide section-servicios-title-en hidden">Our Services</h2>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border border-white/10 font-raleway">
+        <!-- Servicios: ES/EN -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border border-white/10 font-raleway servicios-list servicios-list-es">
             <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
                 <img src="1.png" alt="Congresos" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
                 <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">CONGRESOS Y CONVENCIONES</h3>
@@ -313,15 +377,115 @@
                 </div>
             </div>
         </div>
+        <!-- EN section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border border-white/10 font-raleway servicios-list servicios-list-en hidden">
+            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
+                <img src="1.png" alt="Congresses" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
+                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">CONGRESSES & CONVENTIONS</h3>
+                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
+                    <p>Organizing a congress requires coordination, precision, and a wealth of experience… what we excel at. We handle the technical secretariat, logistics, and find the perfect venue.</p>
+                    <p class="text-white font-medium">You just choose the date and destination.</p>
+                </div>
+            </div>
+            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
+                <img src="2.png" alt="Stands" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
+                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">EXHIBITION STANDS & EPHEMERAL ARCHITECTURE</h3>
+                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
+                    <p>We design and produce stands that shine anywhere in the world, faithfully reflecting your brand's values, identity, and message.</p>
+                    <p class="text-white font-medium">We create experiences that attract, connect, and make every stand your best business card.</p>
+                </div>
+            </div>
+            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
+                <img src="3.png" alt="Teambuilding" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
+                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">TEAMBUILDING ACTIVITIES</h3>
+                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
+                    <p>Our activities are designed to boost teamwork and strengthen the group's spirit. We create dynamics that foster collaboration.</p>
+                    <p class="text-white font-medium">An effective, inspiring, and fun way to unite teams.</p>
+                </div>
+            </div>
+            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
+                <img src="4.png" alt="Theme Dinners" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
+                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">THEMED DINNERS</h3>
+                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
+                    <p>We turn themed dinners into true sensory journeys. We can create any atmosphere you can imagine, teleporting your guests.</p>
+                    <p class="text-white font-medium">If you can dream it, we can create it.</p>
+                </div>
+            </div>
+            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
+                <img src="5.jpeg" alt="Family Days" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
+                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">FAMILY DAYS</h3>
+                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
+                    <p>We design Family Days that transform any work environment into a welcoming, festive space. The perfect setting for employees and families to enjoy.</p>
+                    <p class="text-white font-medium">A day to celebrate, connect, and feel proud to belong.</p>
+                </div>
+            </div>
+            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
+                <img src="6.jpeg" alt="CSR events" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
+                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">CORPORATE SOCIAL RESPONSIBILITY EVENTS</h3>
+                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
+                    <p>We help companies strengthen their commitment to sustainability and the community, creating experiences with positive impact and real purpose.</p>
+                    <p class="text-white font-medium">We turn every initiative into an opportunity to inspire.</p>
+                </div>
+            </div>
+            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
+                <img src="7.png" alt="Decorations" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
+                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">DECORATION & AMBIENCE</h3>
+                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
+                    <p>We can transform any space into whatever you imagine. From immersive environments to impressive set designs, we create universes that excite.</p>
+                    <p class="text-white font-medium">You dream without limits; we love to make it real.</p>
+                </div>
+            </div>
+            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
+                <img src="8.png" alt="Shows" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
+                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">SHOWS & WOW EFFECTS</h3>
+                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
+                    <p>We create shows, animations, and special effects that not only accompany an event… they elevate it, shake things up, and create an unforgettable experience.</p>
+                    <p class="text-white font-medium">We aim to truly excite.</p>
+                </div>
+            </div>
+            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
+                <img src="9.jpeg" alt="Local Partner" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
+                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">LOCAL PARTNER</h3>
+                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
+                    <p>If you need to organize an event in Barcelona, Catalonia or Spain, we become your trusted partner. Local expertise, delivered.</p>
+                    <p class="text-white font-medium">Your event, our local experience.</p>
+                </div>
+            </div>
+            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
+                <img src="10.png" alt="Product Launch" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
+                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">PRODUCT PRESENTATIONS</h3>
+                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
+                    <p>At CONTROL PLAY EVENTS we take product launches to another level. Automotive, fashion, technology… whatever it is, we present it with a unique seal.</p>
+                    <p class="text-white font-medium">Every launch becomes a WOW moment.</p>
+                </div>
+            </div>
+            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
+                <img src="11.png" alt="Gastronomy" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
+                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">GASTRONOMY & CATERING</h3>
+                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
+                    <p>We offer all types of catering, adapting to every culture and religion, with careful and memorable presentations.</p>
+                    <p class="text-white font-medium">We turn gastronomy into a true spectacle.</p>
+                </div>
+            </div>
+            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
+                <img src="12.jpeg" alt="Audiovisual Productions" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
+                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">AUDIOVISUAL PRODUCTIONS</h3>
+                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
+                    <p>We become your partner for all equipment, set design, and technical production. We work with the best professionals and the most advanced technology.</p>
+                    <p class="text-white font-medium">We guarantee impeccable results.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="portfolio" class="bg-white text-black py-24">
         <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
-            <h2 class="font-raleway text-5xl md:text-6xl text-black font-bold uppercase tracking-wide mb-12">Portfolio</h2>
-            
+            <h2 class="font-raleway text-5xl md:text-6xl text-black font-bold uppercase tracking-wide mb-12 portfolio-title-es">Portfolio</h2>
+            <h2 class="font-raleway text-5xl md:text-6xl text-black font-bold uppercase tracking-wide mb-12 portfolio-title-en hidden">Portfolio</h2>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 <script>
-                    const items = [
+                    // ES & EN titles
+                    const itemsES = [
                         {id: 1, title: "Presentación de producto"},
                         {id: 2, title: "Animaciones"},
                         {id: 3, title: "Actividad teambuilding"},
@@ -358,14 +522,52 @@
                         {id: 34, title: "Stands feriales"},
                         {id: 35, title: "Stands feriales"}
                     ];
+                    const itemsEN = [
+                        {id: 1, title: "Product Launch"},
+                        {id: 2, title: "Animations"},
+                        {id: 3, title: "Teambuilding Activity"},
+                        {id: 4, title: "Teambuilding Activity"},
+                        {id: 5, title: "Teambuilding Activity"},
+                        {id: 6, title: "Decoration & Ambience"},
+                        {id: 7, title: "Entertainment"},
+                        {id: 8, title: "Catering"},
+                        {id: 9, title: "Family Day"},
+                        {id: 10, title: "Decoration & Ambience"},
+                        {id: 11, title: "Family Day"},
+                        {id: 12, title: "Catering"},
+                        {id: 13, title: "Inauguration"},
+                        {id: 14, title: "Local Partner"},
+                        {id: 15, title: "Product Launch"},
+                        {id: 16, title: "Product Launch"},
+                        {id: 17, title: "Exhibition Stands"},
+                        {id: 18, title: "Product Launch"},
+                        {id: 19, title: "Teambuilding Activity"},
+                        {id: 20, title: "Audiovisual Production"},
+                        {id: 21, title: "Product Launch"},
+                        {id: 22, title: "Summer Party"},
+                        {id: 23, title: "Exhibition Stands"},
+                        {id: 24, title: "Entertainment"},
+                        {id: 25, title: "Product Launch"},
+                        {id: 26, title: "Audiovisual Production"},
+                        {id: 27, title: "Exhibition Stands"},
+                        {id: 28, title: "Family Day"},
+                        {id: 29, title: "Family Day"},
+                        {id: 30, title: "Exhibition Stands"},
+                        {id: 31, title: "Teambuilding Activity"},
+                        {id: 32, title: "Exhibition Stands"},
+                        {id: 33, title: "Family Day"},
+                        {id: 34, title: "Exhibition Stands"},
+                        {id: 35, title: "Exhibition Stands"}
+                    ];
 
-                    // Orden visual barajado (sin la 36)
                     const displayOrder = [
                         0, 1, 2, 5, 3, 6, 4, 7, 8, 9, 10, 11, 12, 13, 14, 16, 15, 18, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 29, 28, 30, 31, 32, 33, 34
                     ];
 
+                    // Render both ES and EN, toggle via JS
+                    document.write('<div class="portfolio-list-es">');
                     displayOrder.forEach(index => {
-                        const item = items[index];
+                        const item = itemsES[index];
                         document.write(`
                         <div class="group relative aspect-square overflow-hidden cursor-pointer bg-gray-100">
                             <img src="p${item.id}.jpg" onerror="tryNextExtension(this)" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
@@ -374,6 +576,19 @@
                             </div>
                         </div>`);
                     });
+                    document.write('</div>');
+                    document.write('<div class="portfolio-list-en hidden">');
+                    displayOrder.forEach(index => {
+                        const item = itemsEN[index];
+                        document.write(`
+                        <div class="group relative aspect-square overflow-hidden cursor-pointer bg-gray-100">
+                            <img src="p${item.id}.jpg" onerror="tryNextExtension(this)" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+                                <span class="text-white font-serif italic text-xl text-center">${item.title}</span>
+                            </div>
+                        </div>`);
+                    });
+                    document.write('</div>');
                 </script>
             </div>
         </div>
@@ -382,77 +597,102 @@
     <section id="equipo" class="bg-neutral-950 text-white py-32 border-t border-white/10">
         <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
             <div class="text-center mb-16">
-                <h2 class="font-raleway text-5xl md:text-6xl text-white font-bold uppercase tracking-wide mb-6">Nuestro Equipo</h2>
-                <p class="text-neutral-400 max-w-2xl mx-auto">Personas apasionadas creando experiencias inolvidables.</p>
+                <h2 class="font-raleway text-5xl md:text-6xl text-white font-bold uppercase tracking-wide mb-6 equipo-title-es">Nuestro Equipo</h2>
+                <h2 class="font-raleway text-5xl md:text-6xl text-white font-bold uppercase tracking-wide mb-6 equipo-title-en hidden">Our Team</h2>
+                <p class="text-neutral-400 max-w-2xl mx-auto equipo-desc-es">Personas apasionadas creando experiencias inolvidables.</p>
+                <p class="text-neutral-400 max-w-2xl mx-auto equipo-desc-en hidden">Passionate people crafting unforgettable experiences.</p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
-                
                 <div class="group text-center">
                     <div class="relative overflow-hidden rounded-xl mb-6 aspect-[3/4] grayscale group-hover:grayscale-0 transition-all duration-500">
                         <img src="ivan.png" onerror="tryNextExtension(this)" alt="Iván Blasco" class="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-700">
                     </div>
                     <h3 class="text-2xl font-serif mb-1">Iván Blasco</h3>
-                    <p class="text-neutral-400 text-xs font-bold tracking-widest uppercase">CEO</p>
+                    <p class="text-neutral-400 text-xs font-bold tracking-widest uppercase role-ceo-es">CEO</p>
+                    <p class="text-neutral-400 text-xs font-bold tracking-widest uppercase role-ceo-en hidden">CEO</p>
                 </div>
-
                 <div class="group text-center">
                     <div class="relative overflow-hidden rounded-xl mb-6 aspect-[3/4] grayscale group-hover:grayscale-0 transition-all duration-500">
                         <img src="ale.png" onerror="tryNextExtension(this)" alt="Alexandra Laskarai" class="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-700">
                     </div>
                     <h3 class="text-2xl font-serif mb-1">Ana Toledo</h3>
-                    <p class="text-neutral-400 text-xs font-bold tracking-widest uppercase">Event Manager</p>
+                    <p class="text-neutral-400 text-xs font-bold tracking-widest uppercase role-event-es">Event Manager</p>
+                    <p class="text-neutral-400 text-xs font-bold tracking-widest uppercase role-event-en hidden">Event Manager</p>
                 </div>
-
                 <div class="group text-center">
                     <div class="relative overflow-hidden rounded-xl mb-6 aspect-[3/4] grayscale group-hover:grayscale-0 transition-all duration-500">
                         <img src="lula.jpg" onerror="tryNextExtension(this)" alt="Lula Martinez" class="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-700">
                     </div>
                     <h3 class="text-2xl font-serif mb-1">Lula Martinez</h3>
-                    <p class="text-neutral-400 text-xs font-bold tracking-widest uppercase">Tech & IA Manager</p>
+                    <p class="text-neutral-400 text-xs font-bold tracking-widest uppercase role-tech-es">Tech & IA Manager</p>
+                    <p class="text-neutral-400 text-xs font-bold tracking-widest uppercase role-tech-en hidden">Tech & AI Manager</p>
                 </div>
-
                 <div class="group text-center">
                     <div class="relative overflow-hidden rounded-xl mb-6 aspect-[3/4] grayscale group-hover:grayscale-0 transition-all duration-500">
                         <img src="charlotte.jpg" onerror="tryNextExtension(this)" alt="Charlot Gebhart" class="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-700">
                     </div>
                     <h3 class="text-2xl font-serif mb-1">Charlot Gebhart</h3>
-                    <p class="text-neutral-400 text-xs font-bold tracking-widest uppercase">Event Manager Freelance</p>
+                    <p class="text-neutral-400 text-xs font-bold tracking-widest uppercase role-freelance-es">Event Manager Freelance</p>
+                    <p class="text-neutral-400 text-xs font-bold tracking-widest uppercase role-freelance-en hidden">Freelance Event Manager</p>
                 </div>
-
                 <div class="group text-center">
                     <div class="relative overflow-hidden rounded-xl mb-6 aspect-[3/4] grayscale group-hover:grayscale-0 transition-all duration-500">
                         <img src="evelina.jpg" onerror="tryNextExtension(this)" alt="Evelina Emilova" class="w-full h-full object-cover object-top transform group-hover:scale-105 transition-transform duration-700">
                     </div>
                     <h3 class="text-2xl font-serif mb-1">Evelina Emilova</h3>
-                    <p class="text-neutral-400 text-xs font-bold tracking-widest uppercase">Event Manager Freelance</p>
+                    <p class="text-neutral-400 text-xs font-bold tracking-widest uppercase role-freelance-es">Event Manager Freelance</p>
+                    <p class="text-neutral-400 text-xs font-bold tracking-widest uppercase role-freelance-en hidden">Freelance Event Manager</p>
                 </div>
-
             </div>
         </div>
     </section>
 
     <footer id="contacto" class="bg-black pt-24 pb-12 border-t border-white/10">
         <div class="max-w-[1400px] mx-auto px-6 lg:px-12 grid grid-cols-2 md:grid-cols-4 gap-12 text-center md:text-left mb-24">
-            <div><p class="text-5xl md:text-6xl font-serif text-white mb-2">20+</p><p class="text-xs uppercase tracking-widest text-neutral-500">Años de Experiencia</p></div>
-            <div><p class="text-5xl md:text-6xl font-serif text-white mb-2">300+</p><p class="text-xs uppercase tracking-widest text-neutral-500">Eventos Realizados</p></div>
-            <div><p class="text-5xl md:text-6xl font-serif text-white mb-2">50</p><p class="text-xs uppercase tracking-widest text-neutral-500">Marcas Globales</p></div>
-            <div><p class="text-2xl md:text-3xl font-serif text-white mb-2 leading-tight">100%</p><p class="text-xs uppercase tracking-widest text-neutral-500">Compromiso, cercanía y profesionalidad</p></div>
+            <div>
+                <p class="text-5xl md:text-6xl font-serif text-white mb-2 stat-years">20+</p>
+                <p class="text-xs uppercase tracking-widest text-neutral-500 stat-years-label-es">Años de Experiencia</p>
+                <p class="text-xs uppercase tracking-widest text-neutral-500 stat-years-label-en hidden">Years Experience</p>
+            </div>
+            <div>
+                <p class="text-5xl md:text-6xl font-serif text-white mb-2 stat-events">300+</p>
+                <p class="text-xs uppercase tracking-widest text-neutral-500 stat-events-label-es">Eventos Realizados</p>
+                <p class="text-xs uppercase tracking-widest text-neutral-500 stat-events-label-en hidden">Events Held</p>
+            </div>
+            <div>
+                <p class="text-5xl md:text-6xl font-serif text-white mb-2 stat-brands">50</p>
+                <p class="text-xs uppercase tracking-widest text-neutral-500 stat-brands-label-es">Marcas Globales</p>
+                <p class="text-xs uppercase tracking-widest text-neutral-500 stat-brands-label-en hidden">Global Brands</p>
+            </div>
+            <div>
+                <p class="text-2xl md:text-3xl font-serif text-white mb-2 leading-tight stat-commitment">100%</p>
+                <p class="text-xs uppercase tracking-widest text-neutral-500 stat-commitment-label-es">Compromiso, cercanía y profesionalidad</p>
+                <p class="text-xs uppercase tracking-widest text-neutral-500 stat-commitment-label-en hidden">Commitment, closeness and professionalism</p>
+            </div>
         </div>
         <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
             <div class="flex flex-col lg:flex-row justify-between items-start gap-16 mb-24">
                 <div class="max-w-xl">
-                    <h2 class="font-serif text-5xl md:text-7xl text-white mb-8 tracking-tighter">Hablemos de tu <br> próximo evento.</h2>
+                    <h2 class="font-serif text-5xl md:text-7xl text-white mb-8 tracking-tighter contacto-title-es">Hablemos de tu <br> próximo evento.</h2>
+                    <h2 class="font-serif text-5xl md:text-7xl text-white mb-8 tracking-tighter contacto-title-en hidden">Let's talk about your<br> next event.</h2>
                     <a href="mailto:info@controlplayevents.com" class="inline-flex items-center gap-3 text-xl text-neutral-400 hover:text-white transition-colors border-b border-white/20 pb-1">info@controlplayevents.com<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="arrow-up-right" class="lucide lucide-arrow-up-right w-5 h-5"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
                 </div>
                 <div class="grid grid-cols-1 gap-16">
                     <div>
-                        <h4 class="text-white font-medium mb-6">Oficina</h4>
-                        <address class="text-neutral-500 not-italic text-sm leading-loose">
+                        <h4 class="text-white font-medium mb-6 contacto-office-title-es">Oficina</h4>
+                        <h4 class="text-white font-medium mb-6 contacto-office-title-en hidden">Office</h4>
+                        <address class="text-neutral-500 not-italic text-sm leading-loose contacto-address-es">
                             C/SANT MIQUEL 63<br>
                             (08620) BARCELONA, España<br>
                             TLF: 930102191<br>
                             <span class="text-white mt-2 block">Horario: 8h-14h y 15h-17h</span>
+                        </address>
+                        <address class="text-neutral-500 not-italic text-sm leading-loose contacto-address-en hidden">
+                            C/SANT MIQUEL 63<br>
+                            (08620) BARCELONA, Spain<br>
+                            Tel: 930102191<br>
+                            <span class="text-white mt-2 block">Schedule: 8am-2pm & 3pm-5pm</span>
                         </address>
                     </div>
                 </div>
@@ -460,12 +700,115 @@
             <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 text-xs text-neutral-600 uppercase tracking-widest">
                 <div class="flex items-center gap-2 mb-4 md:mb-0"><span>© 2024 Control Play Events.</span></div>
                 <div class="flex gap-8">
-                        <a href="legal.html#legal" class="hover:text-white transition-colors">Aviso Legal</a>
-                        <a href="legal.html#privacidad" class="hover:text-white transition-colors">Privacidad</a>
-                        <a href="legal.html#cookies" class="hover:text-white transition-colors">Cookies</a>
-                    </div>
+                    <a href="legal.html#legal" class="hover:text-white transition-colors legal-link-es">Aviso Legal</a>
+                    <a href="legal.html#legal" class="hover:text-white transition-colors legal-link-en hidden">Legal Notice</a>
+                    <a href="legal.html#privacidad" class="hover:text-white transition-colors priv-link-es">Privacidad</a>
+                    <a href="legal.html#privacidad" class="hover:text-white transition-colors priv-link-en hidden">Privacy</a>
+                    <a href="legal.html#cookies" class="hover:text-white transition-colors cookies-link-es">Cookies</a>
+                    <a href="legal.html#cookies" class="hover:text-white transition-colors cookies-link-en hidden">Cookies</a>
                 </div>
-            </footer>
             </div>
         </div>
     </footer>
+
+    <script>
+    // Simple show/hide by .hidden class
+    function showLang(lang) {
+        // Mobile menu & nav
+        document.querySelectorAll('.menu-label-es, .nav-label-es').forEach(e => e.classList.toggle('hidden', lang !== 'es'));
+        document.querySelectorAll('.menu-label-en, .nav-label-en').forEach(e => e.classList.toggle('hidden', lang !== 'en'));
+        // Hero
+        document.querySelector('.hero-title-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.hero-title-en').classList.toggle('hidden', lang !== 'en');
+        // Btn explorar
+        document.querySelector('.btn-explorar-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.btn-explorar-en').classList.toggle('hidden', lang !== 'en');
+        // Hero desc
+        document.querySelector('.hero-desc-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.hero-desc-en').classList.toggle('hidden', lang !== 'en');
+        // Rolling
+        document.querySelector('.rolling-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.rolling-en').classList.toggle('hidden', lang !== 'en');
+        // Servicios title y grid
+        document.querySelector('.section-servicios-title-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.section-servicios-title-en').classList.toggle('hidden', lang !== 'en');
+        document.querySelector('.servicios-list-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.servicios-list-en').classList.toggle('hidden', lang !== 'en');
+        // Portfolio
+        document.querySelector('.portfolio-title-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.portfolio-title-en').classList.toggle('hidden', lang !== 'en');
+        document.querySelector('.portfolio-list-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.portfolio-list-en').classList.toggle('hidden', lang !== 'en');
+        // Equipo
+        document.querySelector('.equipo-title-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.equipo-title-en').classList.toggle('hidden', lang !== 'en');
+        document.querySelector('.equipo-desc-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.equipo-desc-en').classList.toggle('hidden', lang !== 'en');
+        // Equipo roles
+        document.querySelectorAll('.role-ceo-es, .role-event-es, .role-tech-es, .role-freelance-es').forEach(e => e.classList.toggle('hidden', lang !== 'es'));
+        document.querySelectorAll('.role-ceo-en, .role-event-en, .role-tech-en, .role-freelance-en').forEach(e => e.classList.toggle('hidden', lang !== 'en'));
+        // Footer stats
+        document.querySelector('.stat-years-label-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.stat-years-label-en').classList.toggle('hidden', lang !== 'en');
+        document.querySelector('.stat-events-label-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.stat-events-label-en').classList.toggle('hidden', lang !== 'en');
+        document.querySelector('.stat-brands-label-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.stat-brands-label-en').classList.toggle('hidden', lang !== 'en');
+        document.querySelector('.stat-commitment-label-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.stat-commitment-label-en').classList.toggle('hidden', lang !== 'en');
+        // Footer contacto
+        document.querySelector('.contacto-title-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.contacto-title-en').classList.toggle('hidden', lang !== 'en');
+        document.querySelector('.contacto-office-title-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.contacto-office-title-en').classList.toggle('hidden', lang !== 'en');
+        document.querySelector('.contacto-address-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.contacto-address-en').classList.toggle('hidden', lang !== 'en');
+        // Footer links
+        document.querySelector('.legal-link-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.legal-link-en').classList.toggle('hidden', lang !== 'en');
+        document.querySelector('.priv-link-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.priv-link-en').classList.toggle('hidden', lang !== 'en');
+        document.querySelector('.cookies-link-es').classList.toggle('hidden', lang !== 'es');
+        document.querySelector('.cookies-link-en').classList.toggle('hidden', lang !== 'en');
+        // Highlight switcher
+        document.getElementById('lang-es').classList.toggle('active', lang === 'es');
+        document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+        // html lang
+        document.documentElement.setAttribute('lang', lang);
+        // Title
+        document.getElementById('page-title').textContent = lang === 'es'
+            ? "Control Play Events | Eventos & Experiencias"
+            : "Control Play Events | Events & Experiences";
+    }
+    // Toggle handlers
+    document.getElementById('lang-es').onclick = function() {
+        localStorage.setItem('lang', 'es'); showLang('es');
+    };
+    document.getElementById('lang-en').onclick = function() {
+        localStorage.setItem('lang', 'en'); showLang('en');
+    };
+    // Initial load: check localStorage or navigator.language
+    (function() {
+        let lang = localStorage.getItem('lang');
+        if (!lang) {
+            const nav = navigator.language || navigator.userLanguage || 'es';
+            lang = nav.startsWith('en') ? 'en' : 'es';
+        }
+        showLang(lang);
+    })();
+    // ToggleMenu is used in links
+    function toggleMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const isOpen = !menu.classList.contains('translate-x-full');
+        if (isOpen) {
+            menu.classList.add('translate-x-full','opacity-0','pointer-events-none');
+        } else {
+            menu.classList.remove('translate-x-full','opacity-0','pointer-events-none');
+        }
+    }
+    document.getElementById('open-menu').onclick = function() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.remove('translate-x-full','opacity-0','pointer-events-none');
+    };
+    document.getElementById('close-menu').onclick = toggleMenu;
+    </script>
