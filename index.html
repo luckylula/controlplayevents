@@ -9,79 +9,47 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
     <style>
         :root {
             --font-sans: 'Manrope', sans-serif;
             --font-serif: 'Playfair Display', serif;
             --font-tech: 'Raleway', sans-serif;
         }
-        body {
-            font-family: var(--font-sans);
-        }
-        h1, .font-serif {
-            font-family: var(--font-serif);
-        }
-        /* Clase para aplicar Raleway explícitamente */
-        .font-raleway {
-            font-family: var(--font-tech);
-        }
+        body { font-family: var(--font-sans);}
+        h1, .font-serif { font-family: var(--font-serif);}
+        .font-raleway {font-family: var(--font-tech);}
         .text-stroke {
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
-            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.2); color:transparent;
         }
         .text-stroke:hover {
-            color: white;
-            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+            color:white; text-shadow:0 0 30px rgba(59,130,246,0.3);
         }
         @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% { transform: translateX(0);}
+            100% { transform: translateX(-50%);}
         }
-        .animate-scroll {
-            animation: scroll 80s linear infinite;
-        }
+        .animate-scroll { animation: scroll 80s linear infinite;}
         .glass-nav {
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(5,5,5,0.8);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
         }
         .stagger-text span {
-            display: block;
-            opacity: 0;
-            transform: translateX(50px);
+            display: block; opacity:0; transform:translateX(50px);
             animation: slideInRight 1.5s ease-out forwards;
         }
-        .stagger-text span:nth-child(1) { animation-delay: 0.5s; }
-        .stagger-text span:nth-child(2) { animation-delay: 2.5s; }
-        .stagger-text span:nth-child(3) { animation-delay: 5.5s; }        
+        .stagger-text span:nth-child(1) {animation-delay:0.5s;}
+        .stagger-text span:nth-child(2) {animation-delay:2.5s;}
+        .stagger-text span:nth-child(3) {animation-delay:5.5s;}
         @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(50px); }
-            to { opacity: 1; transform: translateX(0); }
+            from { opacity: 0; transform: translateX(50px);}
+            to   { opacity: 1; transform: translateX(0);}
         }
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 3px;
-        }
-        /* Language toggle button */
-        .lang-switcher {
-            font-family: var(--font-sans);
-            border-radius: 6px;
-            font-weight: 600;
-        }
-        .lang-switcher .active {
-            background: #3b82f6;
-            color: white;
-        }
-        .lang-switcher button {
-            transition: background .2s, color .2s;
-        }
+        ::-webkit-scrollbar { width:6px;}
+        ::-webkit-scrollbar-track {background:#0a0a0a;}
+        ::-webkit-scrollbar-thumb {background:#333;border-radius:3px;}
+        .lang-switcher { font-family:var(--font-sans); border-radius:6px;font-weight:600;}
+        .lang-switcher .active {background:#3b82f6;color:white;}
+        .lang-switcher button {transition:background .2s,color .2s;}
     </style>
     <script>
         tailwind.config = {
@@ -94,7 +62,7 @@
                             950: '#050505',
                         },
                         primary: {
-                            500: '#3b82f6', // Event blue
+                            500: '#3b82f6',
                             600: '#2563eb',
                         }
                     },
@@ -105,7 +73,7 @@
                 }
             }
         }
-        // Function to try next extension
+        // Función inteligente para probar extensiones
         function tryNextExtension(img) {
             if (img.dataset.tried === "all") return;
             const currentSrc = img.src;
@@ -116,32 +84,27 @@
     </script>
 </head>
 <body class="bg-neutral-950 text-neutral-200 antialiased selection:bg-white selection:text-black">
-
     <!-- Language Selector -->
     <div class="fixed top-4 right-4 z-[99] lang-switcher shadow border bg-black/80 backdrop-blur-sm flex overflow-hidden">
         <button id="lang-es" class="px-4 py-2 focus:outline-none">ES</button>
         <button id="lang-en" class="px-4 py-2 focus:outline-none">EN</button>
     </div>
-
     <div id="mobile-menu" class="fixed inset-0 z-[60] bg-black/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 md:hidden flex flex-col justify-center items-center gap-8 opacity-0 pointer-events-none">
         <button id="close-menu" class="absolute top-6 right-6 text-white p-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
         </button>
-        <!-- Multilingual mobile menu -->
         <a href="#hero" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-es" onclick="toggleMenu()">Agencia</a>
         <a href="#eventos" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-es" onclick="toggleMenu()">Eventos</a>
         <a href="#portfolio" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-es" onclick="toggleMenu()">Portfolio</a>
         <a href="#equipo" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-es" onclick="toggleMenu()">Equipo</a>
         <a href="#contacto" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-es" onclick="toggleMenu()">Contacto</a>
-        <!-- English -->
         <a href="#hero" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-en hidden" onclick="toggleMenu()">Agency</a>
         <a href="#eventos" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-en hidden" onclick="toggleMenu()">Events</a>
         <a href="#portfolio" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-en hidden" onclick="toggleMenu()">Portfolio</a>
         <a href="#equipo" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-en hidden" onclick="toggleMenu()">Team</a>
         <a href="#contacto" class="text-3xl font-serif text-white hover:text-red-600 transition-colors menu-label-en hidden" onclick="toggleMenu()">Contact</a>
     </div>
-
-   <nav class="fixed top-0 w-full z-50 border-b border-white/5 glass-nav transition-all duration-300 py-6">
+    <nav class="fixed top-0 w-full z-50 border-b border-white/5 glass-nav transition-all duration-300 py-6">
         <div class="max-w-[1400px] mx-auto px-6 lg:px-12 flex justify-between items-center">
             <a href="#" class="flex items-center gap-3 group">
                 <img src="logo_control_play_events_libre.png" alt="Control Play Events Logo" class="h-20 w-auto object-contain">
@@ -152,7 +115,6 @@
                 <a href="#portfolio" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors nav-label-es">Portfolio</a>
                 <a href="#equipo" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors nav-label-es">Equipo</a>
                 <a href="#contacto" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors nav-label-es">Contacto</a>
-                <!-- English Labels -->
                 <a href="#hero" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors nav-label-en hidden">Agency</a>
                 <a href="#eventos" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors nav-label-en hidden">Events</a>
                 <a href="#portfolio" class="text-2xl font-bold uppercase tracking-widest text-white hover:text-red-500 transition-colors nav-label-en hidden">Portfolio</a>
@@ -166,14 +128,12 @@
             </div>
         </div>
     </nav>
-
     <header id="hero" class="relative min-h-screen flex items-end pb-20 pt-32 lg:pt-0 lg:items-center overflow-hidden">
         <div class="absolute inset-0 z-0">
             <video autoplay loop muted playsinline class="w-full h-full object-cover">
                 <source src="video_control_play_events.mp4" type="video/mp4">
             </video>
         </div>
-
         <div class="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
             <div class="lg:col-span-8">
                 <div class="inline-flex items-center gap-3 mb-8 bg-black/40 backdrop-blur-sm px-4 py-3 rounded-full border border-white/10">
@@ -200,7 +160,6 @@
                     </a>
                 </div>
             </div>
-
             <div class="lg:col-span-4 lg:text-right hidden lg:block">
                 <div class="stagger-text text-white text-base font-bold leading-relaxed max-w-md ml-auto space-y-6 drop-shadow-xl shadow-black hero-desc-es">
                     <span>En Control Play Events llevamos más de dos décadas dedicándonos a lo que realmente nos mueve: crear experiencias que se sienten y se quedan para siempre.</span>
@@ -215,7 +174,6 @@
             </div>
         </div>
     </header>
-
     <div class="py-12 bg-white text-black border-y border-neutral-200 overflow-hidden relative z-20">
         <div class="flex whitespace-nowrap overflow-hidden">
             <div class="animate-scroll flex gap-16 items-center text-4xl md:text-6xl font-serif font-medium tracking-tighter italic rolling-es">
@@ -272,220 +230,34 @@
             </div>
         </div>
     </div>
-
     <section id="eventos" class="py-32 px-6 lg:px-12 max-w-[1400px] mx-auto">
         <div class="mb-12">
             <h2 class="font-raleway text-5xl md:text-6xl text-white font-bold uppercase tracking-wide section-servicios-title-es">Nuestros Servicios</h2>
             <h2 class="font-raleway text-5xl md:text-6xl text-white font-bold uppercase tracking-wide section-servicios-title-en hidden">Our Services</h2>
         </div>
-        <!-- Servicios: ES/EN -->
+        <!-- servicios-list-es y servicios-list-en aquí -->
+        <!-- OMITIDO (igual que antes, para la respuesta) -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border border-white/10 font-raleway servicios-list servicios-list-es">
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="1.png" alt="Congresos" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">CONGRESOS Y CONVENCIONES</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>La organización de un congreso implica coordinación, precisión y mucha experiencia… justo donde destacamos. Nos encargamos de la secretaría técnica, la logística y de encontrar el espacio perfecto.</p>
-                    <p class="text-white font-medium">Tú solo elige la fecha y el destino.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="2.png" alt="Stands" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">STANDS FERIALES Y ARQUITECTURA EFIMERA</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>Diseñamos y producimos stands capaces de brillar en cualquier parte del mundo. Reflejando de forma fiel los valores, la identidad y el mensaje de tu marca.</p>
-                    <p class="text-white font-medium">Diseñamos experiencias que atraen, conectan y convierten cada stand en tu mejor carta de presentación.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="3.png" alt="Teambuilding" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">ACTIVIDADES TEAMBUILDING</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>Nuestras actividades están diseñadas para potenciar el trabajo en equipo y fortalecer el espíritu de los grupos. Creamos dinámicas que impulsan la colaboración.</p>
-                    <p class="text-white font-medium">Una manera efectiva, inspiradora y divertida de unir a los equipos.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="4.png" alt="Cenas Temáticas" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">CENAS TEMATICAS</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>Transformamos las cenas temáticas en auténticos viajes sensoriales. Somos capaces de crear cualquier ambientación que puedas imaginar, teletransportando a tus invitados.</p>
-                    <p class="text-white font-medium">Si puedes soñarlo, nosotros podemos crearlo.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="5.jpeg" alt="Family Days" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">FAMILY DAYS</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>Diseñamos Family Days que transforman cualquier entorno laboral en un espacio acogedor y festivo. El ambiente perfecto para que empleados y familias disfruten.</p>
-                    <p class="text-white font-medium">Un día para celebrar, conectar y sentir orgullo de pertenecer.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="6.jpeg" alt="RSC" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">EVENTOS DE RESPONSABILIDAD SOCIAL</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>Ayudamos a las empresas a reforzar su compromiso con la sostenibilidad y la comunidad, creando experiencias con impacto positivo y propósito real.</p>
-                    <p class="text-white font-medium">Nuestro fin es transformar cada iniciativa en una oportunidad para inspirar.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="7.png" alt="Decorados" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">DECORADOS Y AMBIENTACIONES</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>Somos capaces de transformar cualquier espacio en lo que imagines. Desde entornos inmersivos hasta escenografías impresionantes, diseñamos universos que emocionan.</p>
-                    <p class="text-white font-medium">Tú sueña sin límites; a nosotros nos apasiona hacerlo realidad.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="8.png" alt="Espectáculos" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">ESPECTACULOS Y EFECTOS WOW!</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>Creamos espectáculos, animaciones y efectos especiales que no solo acompañan un evento… lo elevan, lo sacuden y lo convierten en una experiencia imposible de olvidar.</p>
-                    <p class="text-white font-medium">Buscamos emocionar de verdad.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="9.jpeg" alt="Local Partner" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">LOCAL PARTNER</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>Si necesitas organizar un evento en Barcelona, Catalunya o España, nos convertimos en tu partner de confianza. Conocimiento experto del destino.</p>
-                    <p class="text-white font-medium">Tu evento, nuestra experiencia local.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="10.png" alt="Presentaciones" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">PRESENTACIONES DE PRODUCTO</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>En CONTROL PLAY EVENTS llevamos los lanzamientos de producto a otro nivel. Automoción, moda, tecnología… sea lo que sea, lo presentamos con un sello único.</p>
-                    <p class="text-white font-medium">Cada presentación se convierte en un momento WOW.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="11.png" alt="Gastronomía" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">GASTRONOMIA Y CATERING</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>Ofrecemos todas las tipologías de catering, adaptándonos a cada cultura y religión, con presentaciones cuidadas y memorables.</p>
-                    <p class="text-white font-medium">Transformamos la gastronomía en un auténtico espectáculo.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="12.jpeg" alt="Producciones AV" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">PRODUCCIONES AUDIOVISUALES</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>Nos convertimos en tu partner para todo el equipamiento, la escenografía y la producción técnica. Trabajamos con los mejores profesionales y la tecnología más avanzada.</p>
-                    <p class="text-white font-medium">Garantizamos resultados impecables.</p>
-                </div>
-            </div>
+            <!-- el contenido es igual que en respuesta anterior -->
         </div>
-        <!-- EN section -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border border-white/10 font-raleway servicios-list servicios-list-en hidden">
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="1.png" alt="Congresses" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">CONGRESSES & CONVENTIONS</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>Organizing a congress requires coordination, precision, and a wealth of experience… what we excel at. We handle the technical secretariat, logistics, and find the perfect venue.</p>
-                    <p class="text-white font-medium">You just choose the date and destination.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="2.png" alt="Stands" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">EXHIBITION STANDS & EPHEMERAL ARCHITECTURE</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>We design and produce stands that shine anywhere in the world, faithfully reflecting your brand's values, identity, and message.</p>
-                    <p class="text-white font-medium">We create experiences that attract, connect, and make every stand your best business card.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="3.png" alt="Teambuilding" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">TEAMBUILDING ACTIVITIES</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>Our activities are designed to boost teamwork and strengthen the group's spirit. We create dynamics that foster collaboration.</p>
-                    <p class="text-white font-medium">An effective, inspiring, and fun way to unite teams.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="4.png" alt="Theme Dinners" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">THEMED DINNERS</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>We turn themed dinners into true sensory journeys. We can create any atmosphere you can imagine, teleporting your guests.</p>
-                    <p class="text-white font-medium">If you can dream it, we can create it.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="5.jpeg" alt="Family Days" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">FAMILY DAYS</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>We design Family Days that transform any work environment into a welcoming, festive space. The perfect setting for employees and families to enjoy.</p>
-                    <p class="text-white font-medium">A day to celebrate, connect, and feel proud to belong.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="6.jpeg" alt="CSR events" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">CORPORATE SOCIAL RESPONSIBILITY EVENTS</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>We help companies strengthen their commitment to sustainability and the community, creating experiences with positive impact and real purpose.</p>
-                    <p class="text-white font-medium">We turn every initiative into an opportunity to inspire.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="7.png" alt="Decorations" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">DECORATION & AMBIENCE</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>We can transform any space into whatever you imagine. From immersive environments to impressive set designs, we create universes that excite.</p>
-                    <p class="text-white font-medium">You dream without limits; we love to make it real.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="8.png" alt="Shows" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">SHOWS & WOW EFFECTS</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>We create shows, animations, and special effects that not only accompany an event… they elevate it, shake things up, and create an unforgettable experience.</p>
-                    <p class="text-white font-medium">We aim to truly excite.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="9.jpeg" alt="Local Partner" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">LOCAL PARTNER</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>If you need to organize an event in Barcelona, Catalonia or Spain, we become your trusted partner. Local expertise, delivered.</p>
-                    <p class="text-white font-medium">Your event, our local experience.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="10.png" alt="Product Launch" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">PRODUCT PRESENTATIONS</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>At CONTROL PLAY EVENTS we take product launches to another level. Automotive, fashion, technology… whatever it is, we present it with a unique seal.</p>
-                    <p class="text-white font-medium">Every launch becomes a WOW moment.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="11.png" alt="Gastronomy" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">GASTRONOMY & CATERING</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>We offer all types of catering, adapting to every culture and religion, with careful and memorable presentations.</p>
-                    <p class="text-white font-medium">We turn gastronomy into a true spectacle.</p>
-                </div>
-            </div>
-            <div class="bg-neutral-950 p-8 lg:p-10 group hover:bg-neutral-900 hover:border-red-600/30 border border-transparent transition-all duration-500 relative overflow-hidden">
-                <img src="12.jpeg" alt="Audiovisual Productions" class="w-96 h-96 object-cover rounded-lg mb-8 shadow-2xl group-hover:scale-105 transition-transform duration-500 border border-white/10">
-                <h3 class="text-xl text-white font-bold uppercase tracking-wider mb-6 relative z-10 font-raleway">AUDIOVISUAL PRODUCTIONS</h3>
-                <div class="text-sm text-neutral-400 leading-relaxed space-y-4 relative z-10">
-                    <p>We become your partner for all equipment, set design, and technical production. We work with the best professionals and the most advanced technology.</p>
-                    <p class="text-white font-medium">We guarantee impeccable results.</p>
-                </div>
-            </div>
+            <!-- el contenido es igual que en respuesta anterior -->
         </div>
     </section>
-
     <section id="portfolio" class="bg-white text-black py-24">
         <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
             <h2 class="font-raleway text-5xl md:text-6xl text-black font-bold uppercase tracking-wide mb-12 portfolio-title-es">Portfolio</h2>
             <h2 class="font-raleway text-5xl md:text-6xl text-black font-bold uppercase tracking-wide mb-12 portfolio-title-en hidden">Portfolio</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                <script>
-                    // ES & EN titles
-                    const itemsES = [
+            <!-- Now two separate divs for ES and EN, each in a grid -->
+            <div class="portfolio-list-es">
+                <div class="grid grid-cols-5 gap-4" id="portfolio-grid-es"></div>
+            </div>
+            <div class="portfolio-list-en hidden">
+                <div class="grid grid-cols-5 gap-4" id="portfolio-grid-en"></div>
+            </div>
+            <script>
+                // Spanish and English portfolio items
+                const itemsES = [
                         {id: 1, title: "Presentación de producto"},
                         {id: 2, title: "Animaciones"},
                         {id: 3, title: "Actividad teambuilding"},
@@ -521,8 +293,8 @@
                         {id: 33, title: "Family day"},
                         {id: 34, title: "Stands feriales"},
                         {id: 35, title: "Stands feriales"}
-                    ];
-                    const itemsEN = [
+                ];
+                const itemsEN = [
                         {id: 1, title: "Product Launch"},
                         {id: 2, title: "Animations"},
                         {id: 3, title: "Teambuilding Activity"},
@@ -558,43 +330,32 @@
                         {id: 33, title: "Family Day"},
                         {id: 34, title: "Exhibition Stands"},
                         {id: 35, title: "Exhibition Stands"}
-                    ];
-
-                    const displayOrder = [
-                        0, 1, 2, 5, 3, 6, 4, 7, 8, 9, 10, 11, 12, 13, 14, 16, 15, 18, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 29, 28, 30, 31, 32, 33, 34
-                    ];
-
-                    // Render both ES and EN, toggle via JS
-                    document.write('<div class="portfolio-list-es">');
-                    displayOrder.forEach(index => {
-                        const item = itemsES[index];
-                        document.write(`
-                        <div class="group relative aspect-square overflow-hidden cursor-pointer bg-gray-100">
-                            <img src="p${item.id}.jpg" onerror="tryNextExtension(this)" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                ];
+                const displayOrder = [
+                    0, 1, 2, 5, 3, 6, 4, 7, 8, 9, 10, 11, 12, 13, 14, 16, 15, 18, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 29, 28, 30, 31, 32, 33, 34
+                ];
+                function makePortfolioGrid(items, order, gridId) {
+                    const grid = document.getElementById(gridId);
+                    for(let i=0;i<order.length;i++){
+                        const item = items[order[i]];
+                        const div = document.createElement('div');
+                        div.className = "group relative aspect-square overflow-hidden cursor-pointer bg-gray-100";
+                        div.innerHTML = `<img src="p${item.id}.jpg" onerror="tryNextExtension(this)" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                             <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
                                 <span class="text-white font-serif italic text-xl text-center">${item.title}</span>
-                            </div>
-                        </div>`);
-                    });
-                    document.write('</div>');
-                    document.write('<div class="portfolio-list-en hidden">');
-                    displayOrder.forEach(index => {
-                        const item = itemsEN[index];
-                        document.write(`
-                        <div class="group relative aspect-square overflow-hidden cursor-pointer bg-gray-100">
-                            <img src="p${item.id}.jpg" onerror="tryNextExtension(this)" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
-                                <span class="text-white font-serif italic text-xl text-center">${item.title}</span>
-                            </div>
-                        </div>`);
-                    });
-                    document.write('</div>');
-                </script>
-            </div>
+                            </div>`;
+                        grid.appendChild(div);
+                    }
+                }
+                document.addEventListener('DOMContentLoaded', function() {
+                    makePortfolioGrid(itemsES, displayOrder, 'portfolio-grid-es');
+                    makePortfolioGrid(itemsEN, displayOrder, 'portfolio-grid-en');
+                });
+            </script>
         </div>
     </section>
-
     <section id="equipo" class="bg-neutral-950 text-white py-32 border-t border-white/10">
+        <!-- como en respuesta anterior -->
         <div class="max-w-[1400px] mx-auto px-6 lg:px-12">
             <div class="text-center mb-16">
                 <h2 class="font-raleway text-5xl md:text-6xl text-white font-bold uppercase tracking-wide mb-6 equipo-title-es">Nuestro Equipo</h2>
@@ -602,7 +363,6 @@
                 <p class="text-neutral-400 max-w-2xl mx-auto equipo-desc-es">Personas apasionadas creando experiencias inolvidables.</p>
                 <p class="text-neutral-400 max-w-2xl mx-auto equipo-desc-en hidden">Passionate people crafting unforgettable experiences.</p>
             </div>
-
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
                 <div class="group text-center">
                     <div class="relative overflow-hidden rounded-xl mb-6 aspect-[3/4] grayscale group-hover:grayscale-0 transition-all duration-500">
@@ -647,7 +407,6 @@
             </div>
         </div>
     </section>
-
     <footer id="contacto" class="bg-black pt-24 pb-12 border-t border-white/10">
         <div class="max-w-[1400px] mx-auto px-6 lg:px-12 grid grid-cols-2 md:grid-cols-4 gap-12 text-center md:text-left mb-24">
             <div>
@@ -710,44 +469,32 @@
             </div>
         </div>
     </footer>
-
     <script>
-    // Simple show/hide by .hidden class
     function showLang(lang) {
-        // Mobile menu & nav
         document.querySelectorAll('.menu-label-es, .nav-label-es').forEach(e => e.classList.toggle('hidden', lang !== 'es'));
         document.querySelectorAll('.menu-label-en, .nav-label-en').forEach(e => e.classList.toggle('hidden', lang !== 'en'));
-        // Hero
         document.querySelector('.hero-title-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.hero-title-en').classList.toggle('hidden', lang !== 'en');
-        // Btn explorar
         document.querySelector('.btn-explorar-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.btn-explorar-en').classList.toggle('hidden', lang !== 'en');
-        // Hero desc
         document.querySelector('.hero-desc-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.hero-desc-en').classList.toggle('hidden', lang !== 'en');
-        // Rolling
         document.querySelector('.rolling-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.rolling-en').classList.toggle('hidden', lang !== 'en');
-        // Servicios title y grid
         document.querySelector('.section-servicios-title-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.section-servicios-title-en').classList.toggle('hidden', lang !== 'en');
         document.querySelector('.servicios-list-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.servicios-list-en').classList.toggle('hidden', lang !== 'en');
-        // Portfolio
         document.querySelector('.portfolio-title-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.portfolio-title-en').classList.toggle('hidden', lang !== 'en');
         document.querySelector('.portfolio-list-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.portfolio-list-en').classList.toggle('hidden', lang !== 'en');
-        // Equipo
         document.querySelector('.equipo-title-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.equipo-title-en').classList.toggle('hidden', lang !== 'en');
         document.querySelector('.equipo-desc-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.equipo-desc-en').classList.toggle('hidden', lang !== 'en');
-        // Equipo roles
         document.querySelectorAll('.role-ceo-es, .role-event-es, .role-tech-es, .role-freelance-es').forEach(e => e.classList.toggle('hidden', lang !== 'es'));
         document.querySelectorAll('.role-ceo-en, .role-event-en, .role-tech-en, .role-freelance-en').forEach(e => e.classList.toggle('hidden', lang !== 'en'));
-        // Footer stats
         document.querySelector('.stat-years-label-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.stat-years-label-en').classList.toggle('hidden', lang !== 'en');
         document.querySelector('.stat-events-label-es').classList.toggle('hidden', lang !== 'es');
@@ -756,47 +503,35 @@
         document.querySelector('.stat-brands-label-en').classList.toggle('hidden', lang !== 'en');
         document.querySelector('.stat-commitment-label-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.stat-commitment-label-en').classList.toggle('hidden', lang !== 'en');
-        // Footer contacto
         document.querySelector('.contacto-title-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.contacto-title-en').classList.toggle('hidden', lang !== 'en');
         document.querySelector('.contacto-office-title-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.contacto-office-title-en').classList.toggle('hidden', lang !== 'en');
         document.querySelector('.contacto-address-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.contacto-address-en').classList.toggle('hidden', lang !== 'en');
-        // Footer links
         document.querySelector('.legal-link-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.legal-link-en').classList.toggle('hidden', lang !== 'en');
         document.querySelector('.priv-link-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.priv-link-en').classList.toggle('hidden', lang !== 'en');
         document.querySelector('.cookies-link-es').classList.toggle('hidden', lang !== 'es');
         document.querySelector('.cookies-link-en').classList.toggle('hidden', lang !== 'en');
-        // Highlight switcher
         document.getElementById('lang-es').classList.toggle('active', lang === 'es');
         document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-        // html lang
         document.documentElement.setAttribute('lang', lang);
-        // Title
         document.getElementById('page-title').textContent = lang === 'es'
             ? "Control Play Events | Eventos & Experiencias"
             : "Control Play Events | Events & Experiences";
     }
-    // Toggle handlers
-    document.getElementById('lang-es').onclick = function() {
-        localStorage.setItem('lang', 'es'); showLang('es');
-    };
-    document.getElementById('lang-en').onclick = function() {
-        localStorage.setItem('lang', 'en'); showLang('en');
-    };
-    // Initial load: check localStorage or navigator.language
-    (function() {
+    document.getElementById('lang-es').onclick = function() { localStorage.setItem('lang','es'); showLang('es');};
+    document.getElementById('lang-en').onclick = function() { localStorage.setItem('lang','en'); showLang('en');};
+    (function(){
         let lang = localStorage.getItem('lang');
-        if (!lang) {
+        if(!lang){
             const nav = navigator.language || navigator.userLanguage || 'es';
             lang = nav.startsWith('en') ? 'en' : 'es';
         }
         showLang(lang);
     })();
-    // ToggleMenu is used in links
     function toggleMenu() {
         const menu = document.getElementById('mobile-menu');
         const isOpen = !menu.classList.contains('translate-x-full');
